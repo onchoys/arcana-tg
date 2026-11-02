@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#100d1a" />
+    <meta name="description" content="TARO cards: ARKANA — интерактивная карточная игра, вдохновлённая архетипами Таро" />
+    <link rel="icon" href="data:," />
+    <title>TARO cards: ARKANA</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="module" crossorigin src="./assets/index-B85m89Jq.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BiCbCOUp.css">
+  </head>
+  <body class="booting">
+    <div id="ambient" aria-hidden="true"></div>
+    <!-- Splash for the first frame (YouTube firstFrameReady): visible before the SDK, saves and language are known. -->
+    <div id="boot" role="progressbar" aria-label="TARO cards: ARKANA">
+      <span class="brand-mark">✧</span>
+      <b>TARO cards: ARKANA</b>
+      <span class="boot-bar"><i></i></span>
+    </div>
+    <div id="pause-shield" hidden></div>
+    <div id="app">
+      <header class="topbar">
+        <div class="brand"><span class="brand-mark">✧</span><span class="brand-name">TARO cards: ARKANA</span></div>
+        <div class="topbar-right">
+          <span id="collection" class="stat"></span>
+          <button id="sound" class="sound-button" type="button" popovertarget="sound-panel" aria-haspopup="dialog"><span aria-hidden="true">♪</span></button>
+          <label class="lang-picker"><span class="lang-icon" aria-hidden="true">◍</span><select id="lang"></select></label>
+        </div>
+      </header>
+ <div id="sound-panel" class="sound-panel" popover>
+        <label class="sound-toggle"><input id="sound-enabled" type="checkbox" /> <span id="sound-state"></span></label>
+        <label class="sound-volume"><span data-i18n="volume"></span> <input id="sound-volume" type="range" min="0" max="100" step="5" /></label>
+      </div>
+      <div id="save-banner" class="save-banner" role="alert" hidden>
+        <span data-i18n="saveFailed"></span>
+        <button id="save-retry" type="button" data-i18n="saveRetry"></button>
+      </div>
+      <main>
+        <section id="welcome" class="panel welcome hidden">
+          <p class="eyebrow" data-i18n="eyebrow"></p>
+          <h1 data-i18n="welcomeTitle"></h1>
+          <p class="subtitle" data-i18n="welcomeSubtitle"></p>
+          <aside id="about" class="about" aria-labelledby="about-title">
+            <h2 id="about-title" class="about-title" data-i18n="aboutTitle"></h2>
+            <p data-i18n="about"></p>
+          </aside>
+          <div class="modes">
+            <button class="mode mode-self" id="open-self" type="button" aria-expanded="false" aria-controls="topics"><span class="mode-icon" aria-hidden="true">☾</span><b id="mode-self"></b><small id="mode-self-hint"></small></button>
+            <button class="mode mode-shop" id="open-shop" type="button"><span class="mode-icon" aria-hidden="true">⌂</span><b id="mode-shop"></b><small id="mode-shop-hint"></small></button>
+          </div>
+          <div class="topics hidden" id="topics"></div>
+          <button id="daily" class="daily-button" type="button">✧ <span data-i18n="daily"></span> <span class="arrow">→</span></button>
+        </section>
+
+        <section id="context" class="panel context hidden">
+          <div id="context-icon" class="context-icon" aria-hidden="true"></div>
+          <p id="context-kicker" class="eyebrow"></p>
+          <p id="context-step" class="counter"></p>
+          <h2 id="context-question"></h2>
+          <div id="context-options" class="context-options"></div>
+          <div class="context-nav">
+            <button class="subtle-button" id="context-back" type="button"></button>
+            <button class="skip-button" id="context-skip" type="button"></button>
+          </div>
+        </section>
+
+        <section id="shop" class="panel shop hidden">
+          <p id="shop-kicker" class="eyebrow"></p>
+          <h2 id="shop-title"></h2>
+          <div class="shop-stats"><span id="shop-reputation"></span><span id="shop-tokens"></span></div>
+          <div id="shop-scene" class="shop-scene" aria-hidden="true">
+            <span class="curtain"></span><span class="shelf"></span><span class="lava"><i></i><i></i><i></i></span><span class="lamp"></span>
+            <span class="dust"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="plant"></span>
+            <div id="shop-visitor" class="shop-visitor"></div>
+            <span class="desk"></span><span class="candles"><i></i><i></i><i></i></span>
+            <span class="incense"><svg viewBox="0 0 24 90"><path d="M12 88 C 6 76, 18 66, 12 54 S 4 34, 13 22 S 18 8, 10 0" /></svg></span>
+            <span class="crystal"><i></i></span>
+          </div>
+          <div id="shop-door" class="shop-door"></div>
+          <div class="shop-actions">
+            <button class="skip-button" id="shop-journal" type="button"></button>
+            <button class="skip-button" id="shop-decor" type="button"></button>
+          </div>
+          <button class="subtle-button" id="shop-back" type="button"></button>
+        </section>
+
+        <section id="visit" class="panel visit hidden" aria-live="polite">
+          <div class="visit-head">
+            <div id="visit-portrait" class="visit-portrait"></div>
+            <div class="visit-speech">
+              <p class="eyebrow"><span id="visit-name"></span> <span id="visit-tag" class="tag"></span></p>
+              <p id="visit-intro" class="speech"></p>
+            </div>
+          </div>
+          <h2 id="visit-question" class="visit-question"></h2>
+          <p id="visit-draw-title" class="counter"></p>
+          <div id="visit-slots" class="slots"></div>
+          <p id="visit-draw-hint" class="hint"></p>
+          <div id="visit-deck" class="deck"></div>
+          <div id="visit-answers" class="visit-answers">
+            <div id="visit-reading-block" class="visit-reading">
+              <h3 id="visit-reading-title"></h3>
+              <div id="visit-reading"></div>
+            </div>
+            <h3 id="visit-answer-title"></h3>
+            <div id="visit-options" class="interpretations"></div>
+          </div>
+          <div id="visit-outcome" class="visit-outcome">
+            <p id="visit-reaction" class="speech reaction"></p>
+            <p id="visit-consequence" class="consequence"></p>
+            <p id="visit-journal-line" class="journal-line"></p>
+            <p id="visit-reward" class="reward"></p>
+            <button class="primary-button" id="visit-back" type="button"></button>
+          </div>
+        </section>
+
+        <section id="playing" class="panel playing hidden" aria-live="polite">
+          <p id="topic-kicker" class="eyebrow"></p>
+          <h2 data-i18n="pickTitle"></h2>
+          <p class="subtitle" data-i18n="pickSubtitle"></p>
+          <div id="slots" class="slots"></div>
+          <p class="hint" data-i18n="tapCardHint"></p>
+          <p id="pick-counter" class="counter"></p>
+          <div id="deck" class="deck"></div>
+          <button class="subtle-button" id="back-from-playing" type="button" data-i18n="back"></button>
+        </section>
+
+        <section id="result" class="panel result hidden" aria-live="polite">
+          <p id="result-kicker" class="eyebrow"></p>
+          <h2 id="result-title"></h2>
+          <div id="result-cards" class="result-cards"></div>
+          <p class="hint" data-i18n="tapCardHint"></p>
+          <div class="reading"><h3 data-i18n="threadTitle"></h3><div id="reading-text"></div></div>
+          <button class="primary-button" id="again" type="button" data-i18n="again"></button>
+          <p class="disclaimer" data-i18n="disclaimer"></p>
+        </section>
+      </main>
+      <footer>TARO cards: ARKANA <span>·</span> <b data-i18n="footer"></b></footer>
+    </div>
+    <dialog id="card-dialog" class="card-dialog" aria-labelledby="card-dialog-title">
+      <div class="dialog-body">
+      <button id="card-dialog-close" class="dialog-close" type="button">✕</button>
+      <div id="card-dialog-face" class="dialog-face"></div>
+      <h2 id="card-dialog-title"></h2>
+      <p id="card-dialog-idea" class="dialog-idea"></p>
+      <h3 data-i18n="cardMeaning"></h3>
+      <p id="card-dialog-meaning"></p>
+      <div id="card-dialog-context">
+        <h3 data-i18n="inThisReading"></h3>
+        <p id="card-dialog-position" class="dialog-position"></p>
+        <p id="card-dialog-lens"></p>
+      </div>
+      </div>
+    </dialog>
+    <dialog id="journal-dialog" class="card-dialog wide-dialog" aria-labelledby="journal-title">
+      <div class="dialog-body">
+        <button class="dialog-close" type="button" aria-label="✕">✕</button>
+        <h2 id="journal-title"></h2>
+        <div id="journal-list" class="journal-list"></div>
+      </div>
+    </dialog>
+    <dialog id="decor-dialog" class="card-dialog wide-dialog" aria-labelledby="decor-title">
+      <div class="dialog-body">
+        <button class="dialog-close" type="button" aria-label="✕">✕</button>
+        <h2 id="decor-title"></h2>
+        <p id="decor-tokens" class="shop-stats"></p>
+        <div id="decor-list" class="decor-list"></div>
+        <p id="decor-message" class="decor-message" role="status"></p>
+      </div>
+    </dialog>
+  </body>
+</html>
